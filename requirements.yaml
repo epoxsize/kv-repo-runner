@@ -1,9 +1,0 @@
----
-roles:
-  - name: kv_aap_role
-    src: https://github.com/epoxsize/kv_aap_role.git
-    scm: git
-    version: main
-collections:
-  - name: community.general
-    source: https://galaxy.ansible.com/
