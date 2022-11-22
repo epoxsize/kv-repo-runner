@@ -7,3 +7,5 @@ roles:
 collections:
   - name: community.general
     source: https://galaxy.ansible.com/
+  - name: community.kubevirt.kubevirt_vm
+    source: https://galaxy.ansible.com/
