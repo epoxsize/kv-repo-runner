@@ -1,5 +1,5 @@
 ---
-- hosts: kv_aap_role
+- hosts: localhost
   become: true
   roles:
     - { role: kv_aap_role }
