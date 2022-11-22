@@ -1,0 +1,5 @@
+---
+- hosts: kv_aap_role
+  become: true
+  roles:
+    - { role: kv_aap_role }
