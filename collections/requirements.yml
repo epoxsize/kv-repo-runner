@@ -2,3 +2,6 @@
 collections:
   - name: community.general
     source: https://galaxy.ansible.com/
+  - name: community.kubevirt
+    source: https://galaxy.ansible.com/
+  community.kubevirt
