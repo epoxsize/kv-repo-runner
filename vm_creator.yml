@@ -1,10 +1,14 @@
 ---
-- name: Creating vm on kubevirt cluster
-  kubevirt_vm:
-    api_key: "{{ kv_vm_api_token }}"
-    state: running
-    name: "{{ kv_vm_name }}"
-    host: "{{ kv_vm_host }}"
-    namespace: "{{kv_vm_namespace}}"
-    memory: 512Mi
-    cpu_cores: 2
+- name: vm-test-creator
+  hosts: localhost
+  become: true
+  tasks:
+    - name: Creating vm on kubevirt cluster
+      kubevirt_vm:
+        api_key: "{{ kv_vm_api_token }}"
+        state: running
+        name: "{{ kv_vm_name }}"
+        host: "{{ kv_vm_host }}"
+        namespace: "{{kv_vm_namespace}}"
+        memory: 512Mi
+        cpu_cores: 2
