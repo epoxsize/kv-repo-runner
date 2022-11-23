@@ -2,5 +2,3 @@
 roles:
   - name: kv_aap_role
     src: https://github.com/epoxsize/kv_aap_role.git
-  - name: kubevirt.kubevirt-modules
-    src: https://galaxy.ansible.com/
