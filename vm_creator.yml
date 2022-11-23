@@ -10,6 +10,6 @@
         validate_certs: false
         name: "{{ kv_vm_name }}"
         host: "{{ kv_vm_host }}"
-        namespace: "{{kv_vm_namespace}}"
+        namespace: "{{ kv_vm_namespace }}"
         memory: 512Mi
         cpu_cores: 2
