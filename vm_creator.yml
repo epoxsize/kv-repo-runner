@@ -11,7 +11,7 @@
         host: "{{ kv_vm_host }}"
         name: "{{ item }}-pvc"
         namespace: "{{ kv_vm_namespace }}"
-        size: 10Gi
+        size: 20Gi
         access_modes:
           - ReadWriteOnce
         cdi_source:
@@ -23,7 +23,7 @@
       kubevirt_vm:
         api_key: "{{ kv_api_token }}"
         state: running
-        wait: true
+ #       wait: true
         host: "{{ kv_vm_host }}"
         validate_certs: false
         namespace: "{{ kv_vm_namespace }}"
