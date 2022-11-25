@@ -31,14 +31,13 @@
         cpu_cores: 1
         memory: 2048Mi
         disks:
-          - bootOrder: 2
+          - bootOrder: 1
             name: root-disk
             volume:
               persistentVolumeClaim:
                 claimName: "{{ item }}-pvc"
               name: root-disk
             disk:
-              bootOrder: 1
               bus: virtio
         cloud_init_nocloud:
           userData: |-
