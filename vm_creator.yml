@@ -9,7 +9,7 @@
         api_key: "{{ kv_api_token }}"
         validate_certs: false
         host: "{{ kv_vm_host }}"
-        name: "{{ kv_vm_name }}-pvc"
+        name: "{{ item }}-pvc"
         namespace: "{{ kv_vm_namespace }}"
         size: 10Gi
         access_modes:
@@ -17,7 +17,7 @@
         cdi_source:
           http:
             url: '{{ kv_vm_qcow_url }}'
-#      with_sequence: start=0 end="{{ kv_vm_number }}" format="{{ kv_vm_name }}%02d"
+      with_sequence: start=0 end="{{ kv_vm_number }}" format="{{ kv_vm_name }}%02d"
       
     - name: Creating the VM
       kubevirt_vm:
@@ -27,7 +27,7 @@
         host: "{{ kv_vm_host }}"
         validate_certs: false
         namespace: "{{ kv_vm_namespace }}"
-        name: "{{ kv_vm_name }}"
+        name: "{{ item }}"
         cpu_cores: "{{ kv_cpu_cores }}"
         memory: "{{ kv_vm_memory }}"
         disks:
@@ -35,7 +35,7 @@
             name: root-disk
             volume:
               persistentVolumeClaim:
-                claimName: "{{ kv_vm_name }}-pvc"
+                claimName: "{{ item }}-pvc"
               name: root-disk
             disk:
               bus: virtio
@@ -46,4 +46,4 @@
             chpasswd: { expire: False }
             ssh_authorized_keys:
               - "{{ kv_ssh_auth_key }}"
-#        with_sequence: start=0 end="{{ kv_vm_number }}" format="{{ kv_vm_name }}%02d"
+        with_sequence: start=0 end="{{ kv_vm_number }}" format="{{ kv_vm_name }}%02d"
