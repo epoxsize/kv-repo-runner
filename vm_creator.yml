@@ -6,17 +6,17 @@
   tasks:
     - name: Creating PVC
       kubevirt_pvc:
-        api_key: "{{ kv_api_token }}"
+        api_key: '{{ kv_api_token }}'
         validate_certs: false
-        host: "{{ kv_vm_host }}"
-        name: "{{ item }}-pvc"
-        namespace: "{{ kv_vm_namespace }}"
+        host: '{{ kv_vm_host }}'
+        name: "{{ item }}"-pvc
+        namespace: '{{ kv_vm_namespace }}'
         size: 10Gi
         access_modes:
           - ReadWriteOnce
         cdi_source:
           http:
-            url: "{{ kv_vm_qcow_url }}"
+            url: '{{ kv_vm_qcow_url }}'
       with_sequence: start=0 end="{{ kv_vm_number }}" format="{{ kv_vm_name }}%02d"
       
     - name: Creating the VM
