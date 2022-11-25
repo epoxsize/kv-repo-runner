@@ -10,7 +10,7 @@
         validate_certs: false
         host: "{{ kv_vm_host }}"
         name: "{{ kv_vm_name }}-pvc"
-        namespace: '{{ kv_vm_namespace | default('im-acme-project01') }}'
+        namespace: "{{ kv_vm_namespace }}"
         size: 10Gi
         access_modes:
           - ReadWriteOnce
