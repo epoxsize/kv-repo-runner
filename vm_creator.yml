@@ -43,7 +43,7 @@
             #cloud-config
             password: "{{ kv_ssh_password }}"
             chpasswd: { expire: False }
-            bootcmd:
+            runcmd:
               - "{{ kv_vm_command }}"
             ssh_authorized_keys:
               - "{{ kv_ssh_auth_key }}"
