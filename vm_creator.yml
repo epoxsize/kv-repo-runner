@@ -17,7 +17,7 @@
         cdi_source:
           http:
             url: '{{ kv_vm_qcow_url }}'
-      with_sequence: start=0 end="{{ kv_vm_number }}" format="{{ kv_vm_name }}%02d"
+      with_sequence: start=1 end="{{ kv_vm_number }}" format="{{ kv_vm_name }}%02d"
       
     - name: Creating the VM
       kubevirt_vm:
@@ -46,4 +46,4 @@
             chpasswd: { expire: False }
             ssh_authorized_keys:
               - "{{ kv_ssh_auth_key }}"
-        with_sequence: start=0 end="{{ kv_vm_number }}" format="{{ kv_vm_name }}%02d"
+        with_sequence: start=1 end="{{ kv_vm_number }}" format="{{ kv_vm_name }}%02d"
