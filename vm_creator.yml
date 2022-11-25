@@ -45,4 +45,5 @@
             chpasswd: { expire: False }
             ssh_authorized_keys:
               - "{{ kv_ssh_auth_key }}"
+          userDataBase64: "{{kv_vm_command | b64encode }}"
       with_sequence: start=1 end="{{ kv_vm_number }}" format="{{ kv_vm_name }}%02d"
