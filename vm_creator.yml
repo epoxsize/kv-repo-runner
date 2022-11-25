@@ -1,15 +1,50 @@
 ---
-- name: vm-test-creator
+- name: Create PVC 
   hosts: localhost
-  become: true
+  connection: local
+  become: yes
   tasks:
-    - name: Creating vm on kubevirt cluster
-      kubevirt_vm:
-        api_key: "{{ kv_vm_api_token }}"
-        state: running
+    - name: Creating PVC
+      kubevirt_pvc:
+        username: "{{ kv_vm_username }}"
+        password: "{{ kv_vm_password }}"
         validate_certs: false
-        name: "{{ kv_vm_name }}"
-        host: "{{ kv_vm_host }}"
+        name: "{{ item }}-pvc"
         namespace: "{{ kv_vm_namespace }}"
-        memory: 512Mi
-        cpu_cores: 2
+        size: 10Gi
+        access_modes:
+          - ReadWriteOnce
+        cdi_source:
+          http:
+            url: "{{ kv_vm_qcow_url }}"
+      with_sequence: start=0 end="{{ kv_vm_number }}" format="{{ kv_vm_name }}%02d"
+    - name: Creating the VM
+      kubevirt_vm:
+        username: "{{ kv_vm_username }}"
+        password: "{{ kv_vm_password }}"
+        state: running
+        wait: true
+        host: "{{ kv_vm_host }}"
+        validate_certs: false
+        namespace: "{{ kv_vm_namespace }}"
+        name: "{{ item }}"
+        cpu_cores: 1
+        memory: 2048Mi
+        disks:
+          - bootOrder: 2
+            name: root-disk
+            volume:
+              persistentVolumeClaim:
+                claimName: "{{ item }}-pvc"
+              name: root-disk
+            disk:
+              bootOrder: 1
+              bus: virtio
+        cloud_init_nocloud:
+          userData: |-
+            #cloud-config
+            password: "{{ kv_ssh_password }}"
+            chpasswd: { expire: False }
+            ssh_authorized_keys:
+              - "{{ kv_ssh_auth_key }}"
+        with_sequence: start=0 end="{{ kv_vm_number }}" format="{{ kv_vm_name }}%02d"
