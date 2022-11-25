@@ -6,8 +6,7 @@
   tasks:
     - name: Creating PVC
       kubevirt_pvc:
-        username: "{{ kv_vm_username }}"
-        password: "{{ kv_vm_password }}"
+        api_key: "{{ kv_api_token }}"
         validate_certs: false
         name: "{{ item }}-pvc"
         namespace: "{{ kv_vm_namespace }}"
@@ -18,18 +17,18 @@
           http:
             url: "{{ kv_vm_qcow_url }}"
       with_sequence: start=0 end="{{ kv_vm_number }}" format="{{ kv_vm_name }}%02d"
+      
     - name: Creating the VM
       kubevirt_vm:
-        username: "{{ kv_vm_username }}"
-        password: "{{ kv_vm_password }}"
+        api_key: "{{ kv_api_token }}"
         state: running
         wait: true
         host: "{{ kv_vm_host }}"
         validate_certs: false
         namespace: "{{ kv_vm_namespace }}"
         name: "{{ item }}"
-        cpu_cores: 1
-        memory: 2048Mi
+        cpu_cores: "{{ kv_cpu_cores }}"
+        memory: "{{ kv_vm_memory }}"
         disks:
           - bootOrder: 1
             name: root-disk
