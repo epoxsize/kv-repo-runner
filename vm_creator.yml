@@ -16,14 +16,13 @@
           - ReadWriteOnce
         cdi_source:
           http:
-            url: '{{ kv_vm_qcow_url }}'
+            url: "{{ kv_vm_qcow_url }}"
       with_sequence: start=1 end="{{ kv_vm_number }}" format="{{ kv_vm_name }}%02d"
       
     - name: Creating the VM
       kubevirt_vm:
         api_key: "{{ kv_api_token }}"
         state: running
- #       wait: true
         host: "{{ kv_vm_host }}"
         validate_certs: false
         namespace: "{{ kv_vm_namespace }}"
@@ -46,4 +45,4 @@
             chpasswd: { expire: False }
             ssh_authorized_keys:
               - "{{ kv_ssh_auth_key }}"
-        with_sequence: start=1 end="{{ kv_vm_number }}" format="{{ kv_vm_name }}%02d"
+      with_sequence: start=1 end="{{ kv_vm_number }}" format="{{ kv_vm_name }}%02d"
