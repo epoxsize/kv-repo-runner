@@ -8,6 +8,7 @@
       kubevirt_pvc:
         api_key: "{{ kv_api_token }}"
         validate_certs: false
+        host: "{{ kv_vm_host }}"
         name: "{{ item }}-pvc"
         namespace: "{{ kv_vm_namespace }}"
         size: 10Gi
