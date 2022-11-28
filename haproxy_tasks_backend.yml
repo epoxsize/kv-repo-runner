@@ -4,7 +4,7 @@
   hosts: all
   tasks:
   - name: Haproxy backend tasks
-    haproxy:
+    community.general.haproxy:
       state: "{{ haproxy_backend_status }}" #drain, enable, disable
       host: "{{ haproxy_backend_host }}" #jws-app-01
       backend: "{{ haproxy_backend_name }}" #webservers
