@@ -7,6 +7,6 @@
     template:
       src: hello_world_msg.j2
       dest: /usr/local/tomcat10/webapps/sample/index.html
-      mode: 0633
+      mode: u=rwx,g=r,o=r
+      group: tomcat
       owner: tomcat
-      user: tomcat
