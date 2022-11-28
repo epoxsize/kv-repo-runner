@@ -8,7 +8,4 @@
       state: "{{ haproxy_backend_status }}" #drain, enable, disable
       host: "{{ haproxy_backend_host }}" #jws-app-01
       backend: "{{ haproxy_backend_name }}" #webservers
-      wait: true
       drain: "{{ haproxy_backend_drain }}"
-      wait_interval: 30
-      wait_retries: 5
